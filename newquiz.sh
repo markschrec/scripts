@@ -9,17 +9,21 @@ fi
 
 cd $QUIZ_LOCATION
 
-QUIZ_NUMBER=$(<quizTemplates/quizNumber)
-
-NEW_QUIZ='quiz'$QUIZ_NUMBER
-
 if [ ! -d quizTemplates ]; then
 	echo -e "No quizTemplates directory exists. You must create one with the following files:\nquizTemplate.tex\nquizAugTemplate.tex\nquizKeyTemplate.tex\n"
 	exit 1
 fi
 
+if [ ! -e quizTemplates/quizNumber ]; then
+	echo 1 >quizTemplates/quizNumber
+fi
+
+QUIZ_NUMBER=$(<quizTemplates/quizNumber)
+
+NEW_QUIZ='quiz'$QUIZ_NUMBER
+
 if [ -d "$NEW_QUIZ" ]; then
-	echo "The directory $NEW_QUIZ already exists. Either delete it, or check quizTemplates//quiznumber to be sure you are using the correct quiz number."
+	echo "The directory $NEW_QUIZ already exists. Either delete it, or check quizTemplates/quiznumber to be sure you are using the correct quiz number."
 	exit 1
 fi
 
