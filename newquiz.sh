@@ -1,12 +1,22 @@
 #!/bin/bash
 
-QUIZ_LOCATION=${HOME}'/Documents/gradschool/fall2018/math1310/quizzes'
+
+if [ $# = 0 ]; then
+	QUIZ_LOCATION=${HOME}'/Documents/gradschool/fall2018/math1310/quizzes'
+else
+	QUIZ_LOCATION=$1
+fi
 
 cd $QUIZ_LOCATION
 
 QUIZ_NUMBER=$(<quizTemplates/quizNumber)
 
 NEW_QUIZ='quiz'$QUIZ_NUMBER
+
+if [ ! -d quizTemplates ]; then
+	echo -e "No quizTemplates directory exists. You must create one with the following files:\nquizTemplate.tex\nquizAugTemplate.tex\nquizKeyTemplate.tex\n"
+	exit 1
+fi
 
 if [ -d "$NEW_QUIZ" ]; then
 	echo "The directory $NEW_QUIZ already exists. Either delete it, or check quizTemplates//quiznumber to be sure you are using the correct quiz number."
